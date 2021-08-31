@@ -16,7 +16,7 @@
             <li class="nav-item"><a href="post.php" class="nav-link"><img
                         src="<?php echo HOME_URL; ?>Views/img/icon-post-tweet-twitterblue.svg" alt=""
                         class="post-tweet"></a></li>
-            <li class="nav-item my-icon"><img src="<?php echo HOME_URL; ?>Views/img_uploaded/user/sample-person.jpg"
+            <li class="nav-item my-icon"><img src="<?php echo htmlspecialchars($view_user['image_path']);?>"
                     alt="" class="js-popover" data-bs-container="body" data-bs-toggle="popover"
                     data-bs-placement="right" data-bs-html="true"
                     data-bs-content="<a href= 'profile.php'>プロフィール</a><br><a href='sign-out.php'>ログアウト</a>">
