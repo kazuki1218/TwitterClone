@@ -19,7 +19,9 @@ function createTweet(array $data)
         exit;
     }
 
+    //
     // 新規登録のSQLクエリを作成
+    //
     $query = 'INSERT INTO tweets (user_id, body, image_name) VALUES (?, ?, ?) ';
 
     // プリペアドステートメントにクエリを登録
@@ -34,8 +36,56 @@ function createTweet(array $data)
         echo 'エラーメッセージ: ' . $mysqli->error . "\n";
     }
 
+    //
+    // 後処理
+    //
     // DB接続を解放
     $statement->close();
+    $mysqli->close();
+
+    return $response;
+}
+
+/**
+ * ツイート1件取得
+ *
+ * @peram int $tweet_id
+ * @return array|false
+ */
+function findTweet(int $tweet_id)
+{
+    // DB接続
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    // 接続エラーがある場合->処理停止
+    if ($mysqli->connect_errno) {
+        echo 'MySQLの接続に失敗しました。: ' . $mysqli->connect_error . "\n";
+        exit;
+    }
+
+    // ツイートIDをエスケープ
+    $tweet_id = $mysqli->real_escape_string($tweet_id);
+
+    //
+    // SQLクエリを作成
+    //
+    $query = 'SELECT * FROM tweets  WHERE status = "active" AND id = "' . $tweet_id . '"';
+
+    //
+    // 戻り値を作成
+    //
+    $result = $mysqli->query($query);
+    if ($result) {
+        // データ1件取得
+        $response = $result->fetch_array(MYSQLI_ASSOC);
+    } else {
+        $response = false;
+        echo 'エラーメッセージ: ' . $mysqli->error . "\n";
+    }
+
+    //
+    // 後処理
+    //
+    // DB接続を解放
     $mysqli->close();
 
     return $response;
@@ -123,6 +173,10 @@ function findTweets(array $user, string $keyword = null, array $user_ids = null)
         echo 'エラーメッセージ: ' . $mysqli->error . "\n";
     }
 
+    //
+    // 後処理
+    //
+    // DB接続を解放
     $mysqli->close();
 
     return $response;
