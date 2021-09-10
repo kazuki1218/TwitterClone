@@ -18,6 +18,20 @@ if (isset($_POST['nickname']) && isset($_POST['name']) && isset($_POST['email'])
         'email' => $_POST['email'],
         'password' => $_POST['password'],
     ];
+    //
+    // TODO:　バリデーション
+    //
+    // 文字数制限（すべての入力項目に対して行う）
+    // ニックネーム（ユーザーネーム）
+    // $length = mb_strlen($data['nickname']);
+    // if ($length < 1 || $length > 50) {
+    //     $error_message[] = 'ニックネームは1~501文字にしてください';
+    // }
+    // // メールアドレス
+    // if (!filter_var(($data['email'], FILTER_VALIDATE_EMAIL))) {
+    //     $error_message[] = 'メールアドレスが不正です';
+    // }
+
     // ユーザーを作成し、成功すれば
     if (createUser($data)) {
         // ログイン画面に遷移
