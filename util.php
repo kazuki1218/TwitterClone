@@ -67,7 +67,7 @@ function convertToDayTimeAgo(string $datetime)
 /**
  * ユーザー情報をセッションに保存
  *
- * @peram array $user
+ * @param array $user ユーザ情報
  * @return void
  */
 function saveUserSession(array $user)
